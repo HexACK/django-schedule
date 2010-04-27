@@ -26,6 +26,7 @@ class Event(models.Model):
     start = models.DateTimeField(_("start"))
     end = models.DateTimeField(_("end"),help_text=_("The end time must be later than the start time."))
     title = models.CharField(_("title"), max_length = 255)
+    location = models.CharField(_("title"), max_length = 255)
     description = models.TextField(_("description"), null = True, blank = True)
     creator = models.ForeignKey(User, null = True, verbose_name=_("creator"))
     created_on = models.DateTimeField(_("created on"), default = datetime.datetime.now)
