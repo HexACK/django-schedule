@@ -23,6 +23,20 @@ class Event(models.Model):
     This model stores meta data for a date.  You can relate this data to many
     other models.
     '''
+    WORKFLOW_STATE_OFFLINE = 10
+    WORKFLOW_STATE_ONLINE = 20
+    WORKFLOW_STATE_DELETED = 30
+
+    WORKFLOW_STATES = (
+        (WORKFLOW_STATE_OFFLINE, u'Brouillon'),
+        (WORKFLOW_STATE_ONLINE, u'En ligne'),
+        (WORKFLOW_STATE_DELETED, u'Supprimé'),
+        )
+
+
+    workflow_state = models.PositiveSmallIntegerField(choices=WORKFLOW_STATES,
+                                                      default=WORKFLOW_STATE_OFFLINE, db_index=True)
+
     start = models.DateTimeField(_("start"))
     end = models.DateTimeField(_("end"),help_text=_("The end time must be later than the start time."))
     title = models.CharField(_("title"), max_length = 255)
@@ -39,6 +53,12 @@ class Event(models.Model):
         verbose_name = _('event')
         verbose_name_plural = _('events')
         app_label = 'schedule'
+
+        permissions = (("can_publish_event",
+                        "Can publish an event"),
+                       ("can_see_offline_event",
+                        "Can see an offline event"),
+                       )
 
     def __unicode__(self):
         date_format = u'l, %s' % ugettext("DATE_FORMAT")
