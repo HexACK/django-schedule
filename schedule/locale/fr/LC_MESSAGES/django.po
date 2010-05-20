@@ -187,3 +187,6 @@ msgstr "Semaine : %(start)s-%(end)s"
 #, python-format
 msgid "Day: %(start)s-%(end)s"
 msgstr "Jour: %(start)s-%(end)s"
+
+msgid "location"
+msgstr "lieu"
