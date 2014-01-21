@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
- 
+
 setup(
     name='django-schedule',
     version='0.5b',
@@ -11,6 +11,8 @@ setup(
     url='http://github.com/thauber/django-schedule/tree/master',
     packages=[
         'schedule',
+        'schedule.conf',
+        'schedule.locale',
         'schedule.feeds',
         'schedule.management',
         'schedule.management.commands',
