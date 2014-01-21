@@ -28,9 +28,9 @@ class Event(models.Model):
     WORKFLOW_STATE_DELETED = 30
 
     WORKFLOW_STATES = (
-        (WORKFLOW_STATE_OFFLINE, u'Brouillon'),
-        (WORKFLOW_STATE_ONLINE, u'En ligne'),
-        (WORKFLOW_STATE_DELETED, u'Supprimé'),
+        (WORKFLOW_STATE_OFFLINE, u'Tentative'),
+        (WORKFLOW_STATE_ONLINE, u'Confirmed'),
+        (WORKFLOW_STATE_DELETED, u'Cancelled'),
         )
 
 
