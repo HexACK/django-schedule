@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
+import dateutil
 
 freqs = (   ("YEARLY", _("Yearly")),
             ("MONTHLY", _("Monthly")),
@@ -61,9 +62,12 @@ class Rule(models.Model):
         for param in params:
             param = param.split(':')
             if len(param) == 2:
-                param = (str(param[0]), [int(p) for p in param[1].split(',')])
-                if len(param[1]) == 1:
-                    param = (param[0], param[1][0])
+                if param[0] in ('until', 'dtend'):
+                    import dateutil.parser
+                    param = (str(param[0]), dateutil.parser.parse(param[1]))
+                else:
+                    param = (str(param[0]), [int(p) for p in param[1].split(',')])
+
                 param_dict.append(param)
         return dict(param_dict)
 
