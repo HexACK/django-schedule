@@ -5,6 +5,7 @@ from django.conf import settings
 from schedule.feeds.atom import Feed
 from schedule.feeds.icalendar import ICalendarFeed
 from django.http import HttpResponse
+from django.shortcuts import render_to_response, get_object_or_404
 import datetime, itertools
 
 class UpcomingEventsFeed(Feed):
@@ -16,7 +17,7 @@ class UpcomingEventsFeed(Feed):
     def get_object(self, bits):
         if len(bits) != 1:
             raise ObjectDoesNotExist
-        return Calendar.objects.get(pk=bits[0])
+        return get_object_or_404(Calendar, slug=bits[0])
     
     def link(self, obj):
         if not obj:
@@ -47,10 +48,10 @@ class UpcomingEventsFeed(Feed):
 
 class CalendarICalendar(ICalendarFeed):
     def items(self):
-        cal_id = self.args[1]
-        cal = Calendar.objects.get(pk=cal_id)
-        
-        return cal.events.all()
+        calendar_slug = self.args[1]
+        #cal = Calendar.objects.get(pk=cal_id)
+        calendar = get_object_or_404(Calendar, slug=calendar_slug)
+        return calendar.events.all()
 
     def item_uid(self, item):
         return str(item.id)
