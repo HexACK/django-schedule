@@ -68,9 +68,8 @@ class Rule(models.Model):
                 if param[0] not in rule_fields:
 					continue
 
-                if param[0] in ('until', 'dtend'):
-                    import dateutil.parser
-                    param = (str(param[0]), dateutil.parser.parse(param[1]))
+                if param[0].lower() == 'until':
+                    param = (str(param[0]).lower(), dateutil.parser.parse(param[1], ignoretz=True))
                 else:
                     param = (str(param[0]), [int(p) for p in param[1].split(',')])
 
