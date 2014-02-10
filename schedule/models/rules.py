@@ -73,7 +73,7 @@ class Rule(models.Model):
                 elif param[0].lower() in ('byday', 'byweekday'):
                     param = ('byweekday', [getattr(dateutil.rrule, p) for p in param[1].split(',')])
                 else:
-                    param = (str(param[0]), [int(p) for p in param[1].split(',')])
+                    param = (str(param[0]).lower(), [int(p) for p in param[1].split(',')])
 
                 param_dict.append(param)
         return dict(param_dict)
