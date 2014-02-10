@@ -10,6 +10,9 @@ freqs = (   ("YEARLY", _("Yearly")),
             ("MINUTELY", _("Minutely")),
             ("SECONDLY", _("Secondly")))
 
+rule_fields = ('until', 'count', 'interval', 'byminute', 'byhour',
+    'byday', 'byweekday', 'bymonthday', 'byyearday', 'byweekno',
+    'byweekno', 'bymonth', 'bysetpos', 'wkst')
 class Rule(models.Model):
     """
     This defines a rule by which an event will recur.  This is defined by the
@@ -62,6 +65,9 @@ class Rule(models.Model):
         for param in params:
             param = param.split(':')
             if len(param) == 2:
+                if param[0] not in rule_fields:
+					continue
+
                 if param[0] in ('until', 'dtend'):
                     import dateutil.parser
                     param = (str(param[0]), dateutil.parser.parse(param[1]))
