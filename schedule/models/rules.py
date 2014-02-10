@@ -65,13 +65,14 @@ class Rule(models.Model):
         for param in params:
             param = param.split(':')
             if len(param) == 2:
+				# don't store unmanaged params
                 if param[0] not in rule_fields:
 					continue
 
                 if param[0].lower() == 'until':
                     param = (str(param[0]).lower(), dateutil.parser.parse(param[1], ignoretz=True))
-                elif param[0].lower() in ('byday', 'byweekday'):
-                    param = ('byweekday', [getattr(dateutil.rrule, p) for p in param[1].split(',')])
+                #elif param[0].lower() in ('byday', 'byweekday'):
+                #    param = ('byweekday', [getattr(dateutil.rrule, p) for p in param[1].split(',')])
                 else:
                     param = (str(param[0]).lower(), [int(p) for p in param[1].split(',')])
 
