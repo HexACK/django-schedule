@@ -70,9 +70,8 @@ class Rule(models.Model):
 					continue
 
                 if param[0].lower() == 'until':
-                    param = (str(param[0]).lower(), dateutil.parser.parse(param[1], ignoretz=True))
-                #elif param[0].lower() in ('byday', 'byweekday'):
-                #    param = ('byweekday', [getattr(dateutil.rrule, p) for p in param[1].split(',')])
+                    # TODO validdate rc8601 format with a regex YYYYMMDDTHHMMSS(Z)
+                    param = (str(param[0]).lower(), dateutil.parser.parse(param[1])) #, ignoretz=True))
                 else:
                     param = (str(param[0]).lower(), [int(p) for p in param[1].split(',')])
 
