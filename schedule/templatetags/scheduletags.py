@@ -81,7 +81,6 @@ def options(context, occurrence ):
     user = context['request'].user
     if CHECK_PERMISSION_FUNC(occurrence.event, user):
         context['edit_occurrence'] = occurrence.get_edit_url()
-        print context['edit_occurrence']
         context['cancel_occurrence'] = occurrence.get_cancel_url()
         context['delete_event'] = reverse('delete_event', args=(occurrence.event.id,))
         context['edit_event'] = reverse('edit_event', args=(occurrence.event.calendar.slug, occurrence.event.id,))
@@ -244,8 +243,8 @@ def _cook_occurrences(period, occs, width, height):
         o.max = len([n for n in occs if not(n.end<=o.start or n.start>=o.end)])
     for o in occs:
         o.cls = o.data['class']
-        o.real_start = max(o.start, period.start)
-        o.real_end = min(o.end, period.end)
+        o.real_start = max(o.start.replace(tzinfo=None), period.start)
+        o.real_end = min(o.end.replace(tzinfo=None), period.end)
         # number of "columns" is a minimum number of overlaps for each overlapping group
         o.max = min([n.max for n in occs if not(n.end<=o.start or n.start>=o.end)] or [1])
         w = int(width / (o.max))

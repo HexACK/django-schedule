@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import date
 from django.utils.translation import ugettext, ugettext_lazy as _
 import datetime
-from dateutil import rrule
+from dateutil import rrule, tz
 from schedule.models.rules import Rule
 from schedule.models.calendars import Calendar
 from schedule.utils import OccurrenceReplacer
@@ -98,6 +98,11 @@ class Event(models.Model):
         """
         persisted_occurrences = self.occurrence_set.all()
         occ_replacer = OccurrenceReplacer(persisted_occurrences)
+        if not start.tzinfo:
+            start = start.replace(tzinfo=tz.tzutc())
+        if not end.tzinfo:
+            end = end.replace(tzinfo=tz.tzutc())
+
         occurrences = self._get_occurrence_list(start, end)
         final_occurrences = []
         for occ in occurrences:

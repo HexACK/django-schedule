@@ -73,13 +73,16 @@ class Period(object):
     def classify_occurrence(self, occurrence):
         if occurrence.cancelled and not SHOW_CANCELLED_OCCURRENCES:
             return
-        if occurrence.start > self.end or occurrence.end < self.start:
+        if occurrence.start.replace(tzinfo=None) > self.end or \
+			occurrence.end.replace(tzinfo=None) < self.start:
             return None
         started = False
         ended = False
-        if occurrence.start >= self.start and occurrence.start < self.end:
+        if occurrence.start.replace(tzinfo=None) >= self.start and \
+			occurrence.start.replace(tzinfo=None) < self.end:
             started = True
-        if occurrence.end >=self.start and occurrence.end< self.end:
+        if occurrence.end.replace(tzinfo=None) >=self.start and \
+			occurrence.end.replace(tzinfo=None) < self.end:
             ended = True
         if started and ended:
             return {'occurrence': occurrence, 'class': 1}
