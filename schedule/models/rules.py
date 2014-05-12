@@ -13,6 +13,7 @@ freqs = (   ("YEARLY", _("Yearly")),
 rule_fields = ('until', 'count', 'interval', 'byminute', 'byhour',
     'byday', 'byweekday', 'bymonthday', 'byyearday', 'byweekno',
     'byweekno', 'bymonth', 'bysetpos', 'wkst')
+
 class Rule(models.Model):
     """
     This defines a rule by which an event will recur.  This is defined by the
@@ -65,12 +66,12 @@ class Rule(models.Model):
         for param in params:
             param = param.split(':')
             if len(param) == 2:
-				# don't store unmanaged params
-                if param[0] not in rule_fields:
-					continue
+                # don't store unmanaged params
+                if param[0].lower() not in rule_fields:
+                    continue
 
                 if param[0].lower() == 'until':
-                    # TODO validdate rc8601 format with a regex YYYYMMDDTHHMMSS(Z)
+                    # TODO validdate rfc8601 format with a regex YYYYMMDDTHHMMSS(Z)
                     param = (str(param[0]).lower(), dateutil.parser.parse(param[1])) #, ignoretz=True))
                 elif param[0].lower() in ('byday', 'byweekday'):
                     param = ('byweekday', [getattr(dateutil.rrule, p) for p in param[1].split(',')])
