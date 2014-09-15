@@ -1,6 +1,6 @@
 from urllib import quote
 from django.shortcuts import render_to_response, get_object_or_404
-from django.views.generic.create_update import delete_object
+from django.views.generic.edit import DeleteView
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -288,7 +288,7 @@ def delete_event(request, event_id, next=None, login_required=True):
     event = get_object_or_404(Event, id=event_id)
     next = next or reverse('day_calendar', args=[event.calendar.slug])
     next = get_next_url(request, next)
-    return delete_object(request,
+    return DeleteView(request,
                          model = Event,
                          object_id = event_id,
                          post_delete_redirect = next,

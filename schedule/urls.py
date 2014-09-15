@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from django.views.generic.list_detail import object_list
+from django.views.generic.list import ListView
 from schedule.models import Calendar
 from schedule.feeds import UpcomingEventsFeed
 from schedule.feeds import CalendarICalendar
@@ -13,7 +13,7 @@ urlpatterns = patterns('',
 
 # urls for Calendars
 url(r'^calendar/$',
-    object_list,
+    ListView,,
     name="schedule",
     kwargs={'queryset':Calendar.objects.all(), 'template_name':'schedule/calendar_list.html'}),
 
@@ -99,5 +99,5 @@ url(r'^feed/calendar/(.*)/$',
 
 (r'^ical/calendar/(.*)/$', CalendarICalendar()),
 
- url(r'^$', object_list, info_dict, name='schedule'),
+ url(r'^$', ListView, info_dict, name='schedule'),
 )
