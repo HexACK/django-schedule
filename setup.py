@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-schedule',
-    version='1.2.2',
+    version='1.2.3',
     description='A calendaring app for Django.',
     author='Anthony Robert Hauber',
     author_email='thauber@gmail.com',
