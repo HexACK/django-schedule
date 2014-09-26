@@ -13,7 +13,7 @@ urlpatterns = patterns('',
 
 # urls for Calendars
 url(r'^calendar/$',
-    ListView,,
+    ListView,
     name="schedule",
     kwargs={'queryset':Calendar.objects.all(), 'template_name':'schedule/calendar_list.html'}),
 
