@@ -8,7 +8,7 @@ setup(
     description='A calendaring app for Django.',
     author='Anthony Robert Hauber',
     author_email='thauber@gmail.com',
-    url='http://github.com/thauber/django-schedule/tree/master',
+    url='http://github.com/carxwol/django-schedule/tree/master',
     packages=[
         'schedule',
         'schedule.conf',
