@@ -10,7 +10,7 @@ info_dict = {
     'queryset': Calendar.objects.all().order_by('name')
 }
 
-urlpatterns = patterns('',
+urlpatterns = [
 
 # urls for Calendars
 url(r'^calendar/$',
@@ -98,7 +98,7 @@ url(r'^feed/calendar/(.*)/$',
     views.feed,
     { "feed_dict": { "upcoming": UpcomingEventsFeed } }),
 
-(r'^ical/calendar/(.*)/$', CalendarICalendar()),
+url(r'^ical/calendar/(.*)/$', CalendarICalendar()),
 
  url(r'^$', ListView, info_dict, name='schedule'),
-)
+]
