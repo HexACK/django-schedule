@@ -43,7 +43,7 @@ class Event(models.Model):
     location = models.CharField(_("location"), max_length = 255)
     description = models.TextField(_("description"), null = True, blank = True)
     creator = models.ForeignKey(User, null = True,
-        verbose_name=_("creator"), on_delete=models.CASCADE)
+        verbose_name=_("creator"), on_delete=models.SET_NULL)
     created_on = models.DateTimeField(_("created on"), default = datetime.datetime.now)
     rule = models.ForeignKey(Rule, null = True, blank = True,
         verbose_name=_("rule"),
