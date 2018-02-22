@@ -57,9 +57,9 @@ class CalendarManager(models.Manager):
         """
         calendar_list = self.get_calendars_for_object(obj, distinction)
         if len(calendar_list) == 0:
-            raise Calendar.DoesNotExist, "Calendar does not exist."
+            raise Calendar.DoesNotExist("Calendar does not exist.")
         elif len(calendar_list) > 1:
-            raise AssertionError, "More than one calendars were found."
+            raise AssertionError("More than one calendars were found.")
         else:
             return calendar_list[0]
 
