@@ -7,6 +7,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django.template.defaultfilters import date
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils import timezone
+
 import datetime
 from dateutil import rrule, tz
 from schedule.models.rules import Rule
@@ -44,7 +46,7 @@ class Event(models.Model):
     description = models.TextField(_("description"), null = True, blank = True)
     creator = models.ForeignKey(User, null = True,
         verbose_name=_("creator"), on_delete=models.SET_NULL)
-    created_on = models.DateTimeField(_("created on"), default = datetime.datetime.now)
+    created_on = models.DateTimeField(_("created on"), default =timezone.now)
     rule = models.ForeignKey(Rule, null = True, blank = True,
         verbose_name=_("rule"),
         help_text=_("Select '----' for a one time only event."),
